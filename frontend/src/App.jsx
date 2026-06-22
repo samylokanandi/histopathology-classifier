@@ -11,12 +11,19 @@ export default function App() {
           Upload a histopathology image patch and see both the model's prediction
           and a visual explanation of which regions drove that call.
         </p>
+        <p className="notice">
+          Note: the backend spins down when idle, so the first request after a
+          while may take 60–90 seconds to wake up. Later requests are fast.
+        </p>
       </div>
 
       <UploadPredict />
 
       <div className="footer-note">
-        built with react · fastapi · pytorch — source on github
+        built by Samy Lokanandi · react · fastapi · pytorch ·{' '}
+        <a href="https://github.com/samylokanandi/histopathology-classifier" target="_blank" rel="noreferrer">
+          source on github
+        </a>
       </div>
     </div>
   )
