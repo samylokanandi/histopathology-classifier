@@ -54,7 +54,7 @@ async def predict(file: UploadFile = File(...)):
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded — train and place model.pth first.")
 
-    if not file.content_type.startswith("image/"):
+    if file.content_type and not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Please upload an image file.")
 
     image_bytes = await file.read()
