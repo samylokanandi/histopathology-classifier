@@ -2,10 +2,17 @@ import React, { useRef, useState } from 'react'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
+const SAMPLES = [
+  { id: 'sample-0-a', path: '/samples/sample-0-a.png' },
+  { id: 'sample-0-b', path: '/samples/sample-0-b.png' },
+  { id: 'sample-1-a', path: '/samples/sample-1-a.png' },
+  { id: 'sample-1-b', path: '/samples/sample-1-b.png' },
+]
+
 export default function UploadPredict() {
   const [originalUrl, setOriginalUrl] = useState(null)
   const [heatmapUrl, setHeatmapUrl] = useState(null)
-  const [view, setView] = useState('original') // 'original' | 'heatmap'
+  const [view, setView] = useState('original')
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -46,6 +53,13 @@ export default function UploadPredict() {
   const onDrop = (e) => {
     e.preventDefault()
     handleFile(e.dataTransfer.files?.[0])
+  }
+
+  const handleSampleClick = async (sample) => {
+    const res = await fetch(sample.path)
+    const blob = await res.blob()
+    const file = new File([blob], `${sample.id}.png`, { type: blob.type || 'image/png' })
+    handleFile(file)
   }
 
   const isFlagged = result?.prediction === 'class_1'
@@ -105,6 +119,23 @@ export default function UploadPredict() {
           <button className="upload-btn" onClick={() => fileInputRef.current?.click()} disabled={loading}>
             {loading ? 'Analyzing…' : originalUrl ? 'Try another image' : 'Choose image'}
           </button>
+
+          <div className="samples">
+            <div className="samples-label">No image handy? Try a sample:</div>
+            <div className="samples-row">
+              {SAMPLES.map((s) => (
+                <button
+                  key={s.id}
+                  className="sample-thumb"
+                  onClick={() => handleSampleClick(s)}
+                  disabled={loading}
+                  aria-label={`Try ${s.id}`}
+                >
+                  <img src={s.path} alt="" />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="readout">
