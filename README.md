@@ -87,8 +87,8 @@ set `VITE_API_URL` in a `.env` file in `frontend/`.
 ## Step 6 — Deploy (so the resume's [Live] link is real)
 
 A simple free-tier path:
-- **Backend**: [Render](https://render.com) or [Railway](https://railway.app) — both support a Python web service from a GitHub repo. Set the start command to `uvicorn main:app --host 0.0.0.0 --port $PORT`. Note: model.pth needs to ship with the repo or be pulled from somewhere at startup (e.g. a small file in the repo if it's under ~100MB, otherwise host it on Hugging Face Hub or a GitHub release and download it on startup).
-- **Frontend**: [Vercel](https://vercel.com) or [Netlify](https://netlify.com) — connect the repo, set the root to `frontend/`, set `VITE_API_URL` to your deployed backend URL.
+- **Backend**: [Render](https://render.com) — both support a Python web service from a GitHub repo. Set the start command to `uvicorn main:app --host 0.0.0.0 --port $PORT`. Note: model.pth needs to ship with the repo or be pulled from somewhere at startup (e.g. a small file in the repo if it's under ~100MB, otherwise host it on Hugging Face Hub or a GitHub release and download it on startup).
+- **Frontend**: [Vercel](https://vercel.com)  — connect the repo, set the root to `frontend/`, set `VITE_API_URL` to your deployed backend URL.
 
 ## What's still ahead
 
